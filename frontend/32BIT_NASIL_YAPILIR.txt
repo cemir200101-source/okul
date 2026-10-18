@@ -1,0 +1,75 @@
+==========================================
+32-BIT WINDOWS BUILD NASIL YAPILIR?
+==========================================
+
+KÖTÜ HABER:
+-----------
+Flutter Windows sadece x64 (64-bit) destekliyor.
+Otomatik x86 (32-bit) build YOK.
+
+ÇÖZÜM SEÇENEKLERİ:
+------------------
+
+SEÇENEK 1: Web Versiyonu (ÖNERİLEN)
+------------------------------------
+32-bit bilgisayarlar için web versiyonunu kullanın.
+
+Adımlar:
+1. flutter build web --release
+2. Replit'e deploy edin
+3. Kullanıcıya web linkini gönderin
+4. Tarayıcıdan kullanabilirler
+
+SEÇENEK 2: Android APK
+----------------------
+Eğer kullanıcının Android tableti varsa:
+
+1. flutter build apk --release
+2. APK dosyasını gönderin
+3. Tablet/telefonda kullanabilirler
+
+SEÇENEK 3: Manuel Visual Studio Build (ZORUNLU)
+------------------------------------------------
+Gerçekten 32-bit EXE gerekiyorsa:
+
+1. Visual Studio 2022 Community yükleyin
+2. "Desktop development with C++" yükleyin
+3. CMakeLists.txt dosyasını düzenleyin:
+   - windows/runner/CMakeLists.txt
+   - Win32 platform ekleyin
+
+4. Visual Studio Developer Command Prompt açın (x86 modu)
+
+5. Şu komutları çalıştırın:
+   cd C:\Users\PC\Desktop\yazilim\okul\frontend
+   flutter clean
+
+   REM CMake'i x86 için yapılandır
+   cmake -S windows -B build\windows\x86 -G "Visual Studio 17 2022" -A Win32
+
+   REM Build yap
+   cmake --build build\windows\x86 --config Release
+
+6. build\windows\x86\runner\Release klasöründe exe olacak
+
+NOT: Bu çok karmaşık ve Flutter tarafından desteklenmiyor.
+     Muhtemelen hatalar alacaksınız.
+
+SEÇENEK 4: UWP (Microsoft Store) Uygulaması
+--------------------------------------------
+Microsoft Store'da yayınlarsanız:
+- Hem 32-bit hem 64-bit otomatik desteklenir
+- ARM64 de desteklenir
+- Kurulum daha kolay
+- Otomatik güncellemeler
+
+Ancak Microsoft Store hesabı gerekli ($19 yıllık)
+
+ÖNERİM:
+-------
+32-bit kullanıcılar için:
+1. Web versiyonunu kullanın (en kolay)
+2. Veya x64 build'i gönderin ve "64-bit Windows gerekli" deyin
+3. Çoğu bilgisayar artık 64-bit
+
+==========================================
